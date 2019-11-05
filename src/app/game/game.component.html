@@ -1,0 +1,24 @@
+<h1>The game...</h1>
+
+<div *ngIf="gameInProgress">
+    <p>{{ currentQuestion.question }}</p>
+    <div *ngFor="let answer of currentQuestion.answers">
+        <button (click)="answerChosen(answer)">{{answer.answer}}</button>
+    </div>
+</div>
+
+<div *ngIf="!gameInProgress">
+    <h1>Done...</h1>
+    <h3>Results:</h3>
+    <p>Number correct: {{ numberCorrect }}</p>
+    <p>Number wrong: {{ numberWrong }}</p>
+    <div *ngFor="let question of questions">
+        <mat-card>
+            <p>Question: {{question.question}}</p>
+            <p>Answer: {{question.correctAnswer.answer}}</p>
+            <p>You chose: {{question.answerChosen.answer}}</p>
+        </mat-card>
+    </div>
+</div>
+
+<a routerLink="/main">Go back to Main</a>

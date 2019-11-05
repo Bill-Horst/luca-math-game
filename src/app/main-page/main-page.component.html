@@ -1,0 +1,31 @@
+<h1>The main page...</h1>
+
+<h3>What kind of equations?</h3>
+
+<section fxLayout="column" class="ta-center operation-choice-card">
+
+    <div *ngFor="let o of operationCheckboxes | keyvalue">
+        <mat-card fxLayout="row" fxLayout.sm="column" fxLayoutAlign="space-between center">
+            <section matTooltip="Check the box to enable / disable {{ o.key }} problems this round" class="operations-individual-section"
+                matTooltipPosition="above">
+                <mat-checkbox [(ngModel)]="operationCheckboxes[o.key].checked">{{ o.key | titlecase }}</mat-checkbox>
+            </section>
+            <section matTooltip="Number of addition questions to assign for this round" matTooltipPosition="above" *ngIf="operationCheckboxes[o.key].number">
+                <p class="ta-center">How many questions?</p>
+                <mat-slider [disabled]="!operationCheckboxes[o.key].checked" thumbLabel [displayWith]="formatLabel"
+                    tickInterval="1" min="1" max="50" [(ngModel)]="operationCheckboxes[o.key].number"></mat-slider>
+            </section>
+            <mat-form-field matTooltip="The maximum for each number" matTooltipPosition="above" *ngIf="operationCheckboxes[o.key].max">
+                <p class="ta-center">Max number?</p>
+                <input [disabled]="!operationCheckboxes[o.key].checked" matInput type="number" [(ngModel)]="operationCheckboxes[o.key].max" />
+            </mat-form-field>
+            <mat-form-field matTooltip="The minimum value for each number" matTooltipPosition="above" *ngIf="operationCheckboxes[o.key].min">
+                <p class="ta-center">Min number?</p>
+                <input [disabled]="!operationCheckboxes[o.key].checked" matInput type="number" [(ngModel)]="operationCheckboxes[o.key].min" />
+            </mat-form-field>
+        </mat-card>
+    </div>
+
+</section>
+
+<button (click)="onClickedPlay()" mat-button mat-raised-button color="primary">Play</button>
